@@ -5,14 +5,73 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "PharmaData",
+						"type": "DatasetReference"
+					},
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputData",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1"
+				"source(output(",
+				"          General_Health as string,",
+				"          Checkup as string,",
+				"          Exercise as string,",
+				"          Heart_Disease as string,",
+				"          Skin_Cancer as string,",
+				"          Other_Cancer as string,",
+				"          Depression as string,",
+				"          Diabetes as string,",
+				"          Arthritis as string,",
+				"          Sex as string,",
+				"          Age_Category as string,",
+				"          {Height_(cm)} as string,",
+				"          {Weight_(kg)} as string,",
+				"          BMI as string,",
+				"          Smoking_History as string,",
+				"          Alcohol_Consumption as string,",
+				"          Fruit_Consumption as string,",
+				"          Green_Vegetables_Consumption as string,",
+				"          FriedPotato_Consumption as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 select(mapColumn(",
+				"          Exercise,",
+				"          Heart_Disease,",
+				"          Skin_Cancer,",
+				"          Other_Cancer,",
+				"          Depression,",
+				"          Diabetes,",
+				"          Arthritis,",
+				"          Sex,",
+				"          Age_Category,",
+				"          {Height_(cm)},",
+				"          {Weight_(kg)},",
+				"          BMI,",
+				"          Smoking_History",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
