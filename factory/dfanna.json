@@ -1,0 +1,9 @@
+{
+	"name": "dfanna",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "85ecdb3c-0890-423e-b7de-c51163ad4e02",
+		"tenantId": "b226b29e-0455-47bd-83fb-faceacfb16a2"
+	}
+}
